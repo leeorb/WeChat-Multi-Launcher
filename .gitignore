@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Project specific
+config/
+logs/
+*.log
+
+# PyInstaller
+*.spec
+!WeChatMultiLauncher.spec
+
+# Build artifacts
+build/
+dist/
+
+# Temporary files
+*.tmp
+*.bak
+*.orig
+
+# Local development
+.env
+.env.local
+
+# CodeBuddy
+CODEBUDDY.md
+
+# Build scripts
+build.py
+build_and_test.py
+run_debug.py
+build.bat
+kill_exe.bat
