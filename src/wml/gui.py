@@ -82,6 +82,8 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(WINDOW_TITLE)
         self.setMinimumSize(WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT)
         self.resize(WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT)
+        # 禁用窗口置顶，确保其他应用窗口可以显示在主窗口上方
+        self.setWindowFlags(self.windowFlags() & ~Qt.WindowType.WindowStaysOnTopHint)
 
         # 设置窗口图标
         try:
@@ -324,9 +326,10 @@ class MainWindow(QMainWindow):
         if success:
             # 启动成功，标记为已启动
             self.wechat_launched = True
-            # 直接关闭程序，不显示提示窗口
-            logger.info(f"启动成功，程序即将退出")
-            # 给用户一点时间看到按钮状态变化
+            # 将主窗口置于后台，让微信窗口显示在上方
+            self.showMinimized()
+            logger.info(f"启动成功，主窗口已最小化")
+            # 给用户一点时间看到微信窗口
             import time
             time.sleep(3)
             self.close()
