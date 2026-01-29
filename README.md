@@ -65,6 +65,13 @@ wechat-multilauncher/
   "theme": "auto"
 }
 ```
+## 日志说明
+
+每次启动或操作都会生成日志，文件按日期命名，位于：
+
+`~/Documents/WeChatMultiLauncher/logs/wml_{date}.log`
+
+其中 `{date}` 表示日志生成日期。
 
 ## 依赖
 
@@ -74,4 +81,4 @@ wechat-multilauncher/
 
 ## 许可证
 
-MIT License
+[MIT License](LICENSE)
