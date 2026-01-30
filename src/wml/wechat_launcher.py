@@ -95,8 +95,6 @@ class WeChatLauncher:
             wechat_path: 微信可执行文件路径
             count: 启动数量
         """
-        import subprocess
-
         # 使用 subprocess.Popen 创建独立进程
         # 使用 CREATE_NEW_PROCESS_GROUP 和 DETACHED_PROCESS 确保进程独立
         CREATE_NEW_PROCESS_GROUP = 0x00000200

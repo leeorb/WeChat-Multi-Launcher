@@ -44,7 +44,6 @@ from wml.constants import (
     WINDOW_MIN_HEIGHT,
     WINDOW_DEFAULT_WIDTH,
     WINDOW_DEFAULT_HEIGHT,
-    LOGO_ICON,
     THEME_AUTO,
     THEME_LIGHT,
     THEME_DARK,
@@ -82,16 +81,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(WINDOW_TITLE)
         self.setMinimumSize(WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT)
         self.resize(WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT)
-        # 禁用窗口置顶，确保其他应用窗口可以显示在主窗口上方
-        self.setWindowFlags(self.windowFlags() & ~Qt.WindowType.WindowStaysOnTopHint)
 
-        # 设置窗口图标
-        try:
-            if LOGO_ICON.exists():
-                from PySide6.QtGui import QIcon
-                self.setWindowIcon(QIcon(str(LOGO_ICON)))
-        except Exception as e:
-            logger.warning(f"设置窗口图标失败: {e}")
 
     def _setup_ui(self):
         """设置用户界面"""

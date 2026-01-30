@@ -1,11 +1,19 @@
-"""
-程序入口
-WeChat Multi Launcher 的主程序入口
-"""
-
 import sys
 import os
 import traceback
+import ctypes
+
+
+# 设置应用程序用户模型ID（AppUserModelID）
+# 这对于Windows任务栏正确显示图标至关重要
+# 必须在所有Qt导入和QApplication创建之前调用
+try:
+    app_user_model_id = "github.leeorb.WeChatMultiLauncher"
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_user_model_id)
+    _app_id_error = None
+except Exception as e:
+    # 记录错误但不中断程序，后续logger初始化后再输出
+    _app_id_error = e
 
 
 def find_project_root():
@@ -15,6 +23,7 @@ def find_project_root():
     1. 开发环境：直接运行 Python 脚本
     2. 打包环境：PyInstaller 运行时
     """
+
     # 方法1: 如果已添加到 sys.path，直接使用
     for path in sys.path:
         if path and os.path.exists(os.path.join(path, 'src', 'wml', 'constants.py')):
@@ -52,8 +61,6 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
-from PySide6.QtWidgets import QApplication
-
 # 添加路径到 sys.path
 if hasattr(sys, 'frozen'):
     # PyInstaller 环境
@@ -65,26 +72,42 @@ else:
     sys.path.insert(0, current_dir)
     sys.path.insert(0, os.path.dirname(current_dir))
 
-import wml.constants as constants_module
-import wml.logger_manager as logger_module
-import wml.gui as gui_module
-
-PROJECT_NAME = constants_module.PROJECT_NAME
-PROJECT_VERSION = constants_module.PROJECT_VERSION
-logger = logger_module.logger
-MainWindow = gui_module.MainWindow
-
 
 def main():
     """主函数"""
+    # 延迟导入所有模块
+    import wml.constants as constants_module
+    import wml.logger_manager as logger_module
+    import wml.gui as gui_module
+
+    # 在创建QApplication之前导入Qt模块
+    from PySide6.QtWidgets import QApplication
+    from PySide6.QtGui import QIcon
+
+    PROJECT_NAME = constants_module.PROJECT_NAME
+    PROJECT_VERSION = constants_module.PROJECT_VERSION
+    logger = logger_module.logger
+    MainWindow = gui_module.MainWindow
+
     try:
         logger.info(f"{PROJECT_NAME} v{PROJECT_VERSION} 启动")
         logger.info("=" * 50)
+
+        # 输出AppUserModelID设置结果
+        if _app_id_error:
+            logger.warning(f"设置AppUserModelID失败: {_app_id_error}")
+        else:
+            logger.info("AppUserModelID设置成功")
 
         # 创建 QApplication 实例
         app = QApplication(sys.argv)
         app.setApplicationName(PROJECT_NAME)
         app.setApplicationVersion(PROJECT_VERSION)
+
+        # 设置应用程序图标（任务栏和窗口都使用APP_ICON）
+        if constants_module.APP_ICON.exists():
+            app.setWindowIcon(QIcon(str(constants_module.APP_ICON)))
+            logger.info(f"应用程序图标已设置: {constants_module.APP_ICON}")
 
         # 创建并显示主窗口
         window = MainWindow(app)

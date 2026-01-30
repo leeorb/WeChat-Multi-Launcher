@@ -9,8 +9,7 @@ a = Analysis(
     binaries=[],
     datas=[
         ('src/wml', 'src/wml'),
-        ('img/logo.ico', 'img'),
-        ('img/wechat.ico', 'img'),
+        ('img/WeChat-Multi-Launcher.ico', 'img'),
     ],
     hiddenimports=[
         'json', 'os', 'sys', 'subprocess', 'webbrowser',
@@ -52,5 +51,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='img/wechat.ico',
+    icon='img/WeChat-Multi-Launcher.ico',
 )

@@ -52,8 +52,7 @@ IMG_DIR = BASE_DIR / "img"
 CONFIG_FILE = CONFIG_DIR / "config.json"
 
 # 图标文件
-LOGO_ICON = IMG_DIR / "logo.ico"
-WECHAT_ICON = IMG_DIR / "wechat.ico"
+APP_ICON = IMG_DIR / "WeChat-Multi-Launcher.ico"
 
 # 日志配置
 LOG_PREFIX = "wml"
@@ -82,6 +81,7 @@ THEME_DARK = "dark"
 # GUI 配置
 WINDOW_TITLE = "微信多开启动器"
 WINDOW_MIN_WIDTH = 508
+# 主窗口标题保持简洁，任务栏使用紧凑模式不显示文字
 WINDOW_MIN_HEIGHT = 250
 WINDOW_DEFAULT_WIDTH = 508
 WINDOW_DEFAULT_HEIGHT = 280
